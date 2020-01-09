@@ -1,6 +1,7 @@
 package ru.avalon.java.j30.labs;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Properties;
@@ -29,8 +30,12 @@ public class Main {
             ProductCode code = new ProductCode("MO", 'N', "Movies");
             code.save(connection);
             printAllCodes(connection);
-
+            System.out.println("-----------");
             code.setCode("MV");
+            code.save(connection);
+            printAllCodes(connection);
+            System.out.println("-----------");
+            code.setDescription("ddd");
             code.save(connection);
             printAllCodes(connection);
         }
@@ -59,7 +64,7 @@ public class Main {
         /*
          * TODO #02 Реализуйте метод getUrl
          */
-        throw new UnsupportedOperationException("Not implemented yet!");
+        return "jdbc:derby://localhost:1527/Sample";
     }
     /**
      * Возвращает параметры соединения
@@ -71,7 +76,10 @@ public class Main {
         /*
          * TODO #03 Реализуйте метод getProperties
          */
-        throw new UnsupportedOperationException("Not implemented yet!");
+        Properties prop = new Properties();
+        prop.setProperty("user", "app");
+        prop.setProperty("password", "app");
+        return prop;
     }
     /**
      * Возвращает соединение с базой данных Sample
@@ -83,7 +91,7 @@ public class Main {
         /*
          * TODO #04 Реализуйте метод getConnection
          */
-        throw new UnsupportedOperationException("Not implemented yet!");
+        return DriverManager.getConnection(getUrl(), getProperties());
     }
     
 }
